@@ -150,7 +150,7 @@ function size(list) {
     counter += 1;
     currNode = currNode.next
   }
-  return counter
+  return counter;
 }
 
 function isEmpty(list) {
@@ -205,6 +205,48 @@ function findLast(list) {
   }
 }
 
+function reverseList(list){
+
+  let twoBack = list.head;
+  let prev = list.head;
+  let current = list.head;
+
+  while(current.next !== null){
+    if(current === twoBack){
+      current = current.next;
+    }
+    if(prev === twoBack && current !== twoBack){
+      current = current.next;
+      prev = prev.next;
+      twoBack.next = null;
+    }
+    prev.next = twoBack;
+    twoBack = prev;
+    prev = current;
+    current = current.next;
+  }
+  prev.next = twoBack;
+  current.next = prev;
+  list.head = current;
+  return list;
+}
+
+function thirdFromEnd(list){
+  let currNode = list.head;
+  let counter = 0;
+  while (currNode !== null) {
+    counter += 1;
+    currNode = currNode.next;
+  }
+
+  let myNode = list.head;
+
+  for(let i=0; i < counter-3; i++){
+    myNode = myNode.next;
+  }
+  return myNode;
+}
+
 
 
 function main() {
@@ -222,12 +264,15 @@ function main() {
   SLL.insertAfter('Hotdog', 'Helo');
   SLL.insertAt(3, 'Kat');
   SLL.removeItem('Tauhida');
-  display(SLL)
-  console.log(size(SLL))
+  display(SLL);
+  // console.log(size(SLL))
 
-  console.log(isEmpty(emptyList))
-  console.log(findPrevious(SLL, 'Husker'))
-  console.log(findLast(SLL))
+  // console.log(isEmpty(emptyList))
+  // console.log(findPrevious(SLL, 'Husker'))
+  // console.log(findLast(SLL))
+  // display(reverseList(SLL));
+  console.log(thirdFromEnd(SLL));
+
 }
 
 main();
