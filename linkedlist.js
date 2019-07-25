@@ -134,8 +134,82 @@ class LinkedList {
   }
 }
 
+
+function display(list) {
+  let currNode = list.head
+  while (currNode !== null) {
+    console.log(currNode.value)
+    currNode = currNode.next
+  }
+}
+
+function size(list) {
+  let currNode = list.head
+  let counter = 0
+  while (currNode !== null) {
+    counter += 1;
+    currNode = currNode.next
+  }
+  return counter
+}
+
+function isEmpty(list) {
+  if (list.head === null) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+function findPrevious(list, item) {
+  if (!list.head) {
+    return null;
+  }
+
+  if (list.head.value === item) {
+    list.insertFirst(item);
+    return;
+  }
+
+  let newNode = new _Node(item, null);
+
+  let currNode = list.head;
+  let prevNode = list.head;
+
+  while (currNode !== null) {
+    prevNode = currNode;
+    currNode = currNode.next;
+
+    if (currNode === null) {
+      console.log('Item not found');
+      return;
+    }
+
+    if (currNode.value === item) {
+      return prevNode.value
+    }
+  }
+  
+}
+
+function findLast(list) {
+  if (list.head === null) {
+    return null;
+  } else {
+    let tempNode = list.head;
+    while (tempNode.next !== null) {
+      tempNode = tempNode.next;
+    }
+    return tempNode.value;
+  }
+}
+
+
+
 function main() {
   const SLL = new LinkedList();
+  const emptyList = new LinkedList();
 
   SLL.insertFirst('Apollo');
   SLL.insertFirst('Boomer');
@@ -148,6 +222,12 @@ function main() {
   SLL.insertAfter('Hotdog', 'Helo');
   SLL.insertAt(3, 'Kat');
   SLL.removeItem('Tauhida');
+  display(SLL)
+  console.log(size(SLL))
+
+  console.log(isEmpty(emptyList))
+  console.log(findPrevious(SLL, 'Husker'))
+  console.log(findLast(SLL))
 }
 
 main();
