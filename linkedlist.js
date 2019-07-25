@@ -25,6 +25,20 @@ class LinkedList {
       tempNode.next = new _Node(item, null);
     }
   }
+
+  insertLastCycle(item, node) {
+    if (this.head === null) {
+      this.insertFirst(item);
+    } else {
+      let tempNode = this.head;
+      while (tempNode.next !== null) {
+        tempNode = tempNode.next;
+      }
+      tempNode.next = new _Node(item, node);
+      console.log('a string')
+    }
+  }
+
   find(item) {
     let currNode = this.head;
     if (!this.head) {
@@ -247,6 +261,30 @@ function thirdFromEnd(list){
   return myNode;
 }
 
+function findMiddle(list) {
+  var fastPointer = list.head;
+  var slowPointer = list.head;
+
+  while (fastPointer.next !== null && fastPointer.next.next !== null) {
+    fastPointer = fastPointer.next.next;   
+    slowPointer = slowPointer.next;
+  }
+  return slowPointer.value;
+}
+
+function cycleTest(list) {
+  let listData = []
+  let current = list.head
+  let hasCycle = false;
+  while (current !== null && !listData.includes(current.next)) {
+    listData.push(current)
+    current = current.next;
+    if (current !== null && listData.includes(current.next)) {
+      hasCycle = true;
+    }
+  }
+  return hasCycle;
+}
 
 
 function main() {
@@ -259,20 +297,23 @@ function main() {
   SLL.insertFirst('Husker');
   SLL.insertFirst('Starbuck');
   SLL.insertFirst('Tauhida');
+  SLL.insertFirst('Coffee');
   SLL.removeItem('squirrel');
   SLL.insertBefore('Athena', 'Boomer');
   SLL.insertAfter('Hotdog', 'Helo');
   SLL.insertAt(3, 'Kat');
   SLL.removeItem('Tauhida');
-  display(SLL);
+  SLL.insertLastCycle('Echo', SLL.find('Coffee'))
+  // display(SLL);
   // console.log(size(SLL))
 
   // console.log(isEmpty(emptyList))
   // console.log(findPrevious(SLL, 'Husker'))
   // console.log(findLast(SLL))
   // display(reverseList(SLL));
-  console.log(thirdFromEnd(SLL));
-
+  // console.log(thirdFromEnd(SLL));
+  // console.log(findMiddle(SLL))
+  console.log(cycleTest(SLL))
 }
 
 main();
